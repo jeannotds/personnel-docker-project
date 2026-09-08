@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Next.js
+frontend/.next/
+**/.next/
+
+# NestJS build
+backend/backend/dist/
+**/dist/
+
+# Prisma generated files
+backend/backend/src/generated/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
