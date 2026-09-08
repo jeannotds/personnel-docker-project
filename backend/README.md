@@ -142,3 +142,6 @@ npx prisma migrate dev --name add-phone-to-employee
 <!-- en suite -->
 <!-- Générer ou mettre à jour le Prisma Client -->
 npx prisma generate
+
+<!-- creer la ressource pour generer controller, model, service, dto -->
+npx nest g resource company
