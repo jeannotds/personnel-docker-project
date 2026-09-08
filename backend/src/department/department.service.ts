@@ -100,5 +100,24 @@ export class DepartmentService {
         }
     }
 
+    async delete(id: number){
+        const department = await this.prisma.department.findUnique({where: {id}})
+
+        if(!department){
+            throw new NotFoundException("Department not dound")
+        }
+
+        await this.prisma.department.delete({
+            where: {
+                id:id
+            }
+        })
+
+        return {
+            status: "success",
+            message: "Department deleted successfully"
+        }
+    }
+
     
 }
