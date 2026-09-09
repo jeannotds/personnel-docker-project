@@ -37,7 +37,8 @@ model Employee {
   id        Int      @id @default(autoincrement())
   firstName String
   lastName  String?
-  email     String
+  email     String   @unique
+  telephone String?  @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
