@@ -16,6 +16,10 @@ export class CreateEmployeeDto {
     @IsString()
     email: string
 
+    @IsOptional()
+    @IsString()
+    telephone: string
+
     @Type(() => Number)
     @IsNotEmpty()
     @IsNumber()
