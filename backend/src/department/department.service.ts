@@ -10,8 +10,10 @@ export class DepartmentService {
 
     async create(createDepartmentDto: CreateDepartmentDto){
 
+        const {name, companyId} = createDepartmentDto;
+
         const company = await this.prisma.company.findUnique({
-            where: {id: createDepartmentDto.companyId}
+            where: {id: companyId}
         })
 
         if(!company){
@@ -19,21 +21,21 @@ export class DepartmentService {
         }
 
         const departementFound = await this.prisma.department.findFirst({
-            where: {name: createDepartmentDto.name}
+            where: {name, companyId}
         })
 
         if(departementFound){
-            throw new ConflictException("Department already exist")
+            throw new ConflictException("Department already exist in this company")
         }
 
-        const createDepartmented = await this.prisma.department.create({data: createDepartmentDto, include:{
+        const createsDepartment = await this.prisma.department.create({data: {name, companyId}, include:{
             company: true
         }})
 
         return {
             status: "success",
             message: "Department created successfully",
-            data: createDepartmented,
+            data: createsDepartment,
         }
     }
 
