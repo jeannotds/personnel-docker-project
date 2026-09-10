@@ -58,19 +58,78 @@ export class EmployeeService {
     }
   }
 
-  findAll() {
-    return `This action returns all employee`;
+  async findAll() {
+    const employees = await this.prisma.employee.findMany()
+    return {
+      status: "success",
+      message: "Employees retrieved successfully",
+      data: employees,
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} employee`;
+  async findOne(id: number) {
+    const employee = await this.prisma.employee.findFirst({
+      where: {id}
+    })
+
+    if(!employee){
+      throw new NotFoundException("Employee not found")
+    }
+
+    return {
+      status: "success",
+      message: "Employee founded successfully",
+      data: employee,
+    }
   }
 
-  update(id: number, updateEmployeeDto: UpdateEmployeeDto) {
-    return `This action updates a #${id} employee`;
+  async update(id: number, updateEmployeeDto: UpdateEmployeeDto) {
+
+      const employee = await this.prisma.employee.findFirst({where: {id}})
+
+      if(!employee){
+        throw new NotFoundException("Employee not found")
+      }
+
+      const department = await this.prisma.department.findFirst({where: {id: employee.departmentId}})
+
+      if(!department){
+        throw new NotFoundException("Department not found")
+      }
+
+      const updatedEmployee = await this.prisma.employee.update({
+        where: {id},
+        data: updateEmployeeDto,
+      })
+
+      return {
+        status: "success",
+        message: "Employee updated successfully",
+        data: updatedEmployee,
+      }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} employee`;
+  async remove(id: number) {
+          const employee = await this.prisma.employee.findFirst({where: {id}})
+
+      if(!employee){
+        throw new NotFoundException("Employee not found")
+      }
+
+      const department = await this.prisma.department.findFirst({where: {id: employee.departmentId}})
+
+      if(!department){
+        throw new NotFoundException("Department not found")
+      }
+
+      await this.prisma.employee.delete({
+        where: {id}
+      })
+
+      return {
+        status: "success",
+        message: "Employee deleted successfully",
+      }
+
   }
 }
