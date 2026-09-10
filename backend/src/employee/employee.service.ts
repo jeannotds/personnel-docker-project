@@ -9,7 +9,7 @@ export class EmployeeService {
 
   async create(createEmployeeDto: CreateEmployeeDto) {
     const {firstName, lastName, email, telephone, departmentId} = createEmployeeDto;
-    const existingDepartment = await this.prisma.department.findFirst({
+    const existingDepartment = await this.prisma.department.findUnique({
       where: {id: departmentId}
     })
 
@@ -17,7 +17,7 @@ export class EmployeeService {
       throw new NotFoundException("Department not found")
     }
     
-    const existingEmployee = await this.prisma.employee.findFirst({
+    const existingEmployee = await this.prisma.employee.findUnique({
       where: {
         email
       }
@@ -27,7 +27,7 @@ export class EmployeeService {
       throw new ConflictException("Email already exist")
     }
 
-     const existingTelephone = await this.prisma.employee.findFirst({
+     const existingTelephone = await this.prisma.employee.findUnique({
       where: {
         telephone
       }
@@ -75,7 +75,7 @@ export class EmployeeService {
   }
 
   async findOne(id: number) {
-    const employee = await this.prisma.employee.findFirst({
+    const employee = await this.prisma.employee.findUnique({
       where: {id},
       include: {
         department: {
@@ -99,13 +99,13 @@ export class EmployeeService {
 
   async update(id: number, updateEmployeeDto: UpdateEmployeeDto) {
 
-      const employee = await this.prisma.employee.findFirst({where: {id}})
+      const employee = await this.prisma.employee.findUnique({where: {id}})
 
       if(!employee){
         throw new NotFoundException("Employee not found")
       }
 
-      const department = await this.prisma.department.findFirst({where: {id: employee.departmentId}})
+      const department = await this.prisma.department.findUnique({where: {id: employee.departmentId}})
 
       if(!department){
         throw new NotFoundException("Department not found")
@@ -124,13 +124,13 @@ export class EmployeeService {
   }
 
   async remove(id: number) {
-          const employee = await this.prisma.employee.findFirst({where: {id}})
+          const employee = await this.prisma.employee.findUnique({where: {id}})
 
       if(!employee){
         throw new NotFoundException("Employee not found")
       }
 
-      const department = await this.prisma.department.findFirst({where: {id: employee.departmentId}})
+      const department = await this.prisma.department.findUnique({where: {id: employee.departmentId}})
 
       if(!department){
         throw new NotFoundException("Department not found")
