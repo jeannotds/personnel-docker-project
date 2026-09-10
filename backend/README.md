@@ -145,3 +145,32 @@ npx prisma generate
 
 <!-- creer la ressource pour generer controller, model, service, dto -->
 npx nest g resource company
+
+
+
+
+
+<!-- MANY TO MANY -->
+model Employee {
+  id        Int    @id @default(autoincrement())
+  firstName String
+
+  tasks EmployeeTask[]
+}
+
+model Task {
+  id    Int    @id @default(autoincrement())
+  title String
+
+  employees EmployeeTask[]
+}
+
+model EmployeeTask {
+  employeeId Int
+  taskId     Int
+
+  employee Employee @relation(fields: [employeeId], references: [id])
+  task     Task     @relation(fields: [taskId], references: [id])
+
+  @@id([employeeId, taskId])
+}
