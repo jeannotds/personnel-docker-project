@@ -76,7 +76,14 @@ export class EmployeeService {
 
   async findOne(id: number) {
     const employee = await this.prisma.employee.findFirst({
-      where: {id}
+      where: {id},
+      include: {
+        department: {
+          select: {
+            company: true,
+          }
+        }
+      }
     })
 
     if(!employee){
