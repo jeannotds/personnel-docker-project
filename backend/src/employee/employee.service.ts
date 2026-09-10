@@ -44,8 +44,7 @@ export class EmployeeService {
       include: {
         department: {
           select: {
-            name: true,
-            companyId: true
+            company: true
           }
         }
       }
@@ -59,7 +58,15 @@ export class EmployeeService {
   }
 
   async findAll() {
-    const employees = await this.prisma.employee.findMany()
+    const employees = await this.prisma.employee.findMany({
+      include:{
+        department: {
+          select: {
+            company: true
+          }
+        }
+      }
+    })
     return {
       status: "success",
       message: "Employees retrieved successfully",
