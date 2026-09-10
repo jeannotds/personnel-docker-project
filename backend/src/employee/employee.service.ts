@@ -105,11 +105,20 @@ export class EmployeeService {
         throw new NotFoundException("Employee not found")
       }
 
-      const department = await this.prisma.department.findUnique({where: {id: employee.departmentId}})
 
-      if(!department){
-        throw new NotFoundException("Department not found")
-      }
+        // Vérifier le nouveau département uniquement
+        // s'il est envoyé dans la requête
+        if (updateEmployeeDto.departmentId !== undefined) {
+          const department = await this.prisma.department.findUnique({
+            where: {
+              id: updateEmployeeDto.departmentId,
+            },
+          });
+
+          if (!department) {
+            throw new NotFoundException('Department not found');
+          }
+        }
 
       const updatedEmployee = await this.prisma.employee.update({
         where: {id},
