@@ -43,7 +43,7 @@ export class EmployeeService {
       },
       include: {
         department: {
-          select: {
+          include: {
             company: true
           }
         }
@@ -61,7 +61,7 @@ export class EmployeeService {
     const employees = await this.prisma.employee.findMany({
       include:{
         department: {
-          select: {
+          include: {
             company: true
           }
         }
@@ -79,7 +79,7 @@ export class EmployeeService {
       where: {id},
       include: {
         department: {
-          select: {
+          include: {
             company: true,
           }
         }
