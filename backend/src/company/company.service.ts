@@ -24,6 +24,7 @@ export class CompanyService {
 
     // invalidate cache companies
     await this.redis.getClient().del("companies")
+    // await this.redis.getClient().del("company")
 
     return {
       status: 'success',
@@ -67,6 +68,20 @@ export class CompanyService {
   }
 
   async findOne(id: number) {
+
+    const cacheKey = `company:${id}`;
+
+    const cacheCompany = await this.redis.getClient().get(cacheKey)
+
+    if(cacheCompany){
+          console.log(`Company ${id} loaded from Redis ⚡`);
+      return {
+        status: "success",
+        message: "Company retried from cache successfully",
+        data: JSON.parse(cacheCompany),
+      }
+    }
+
     const company = await this.prisma.company.findUnique({
       where: {
         id: id
@@ -76,6 +91,14 @@ export class CompanyService {
     if(!company){
       throw new NotFoundException("Company not found")
     }
+
+    //Mettre en cache
+    await this.redis.getClient().set(cacheKey, JSON.stringify(company),
+    {
+      EX: 60
+    })
+
+
     return {
       status: "success",
       message: "Company founded successfully",
@@ -97,6 +120,7 @@ export class CompanyService {
 
     // Invalidate cache company
     await this.redis.getClient().del("companies")
+    await this.redis.getClient().del(`company:${id}`);
 
     return {
       status: "success",
@@ -116,6 +140,7 @@ export class CompanyService {
 
     // Invalide cache company
     await this.redis.getClient().del("companies")
+    await this.redis.getClient().del(`company:${id}`);
 
     return {
       status: "success",
