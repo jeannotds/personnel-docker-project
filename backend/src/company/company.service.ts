@@ -38,7 +38,7 @@ export class CompanyService {
     const cacheKey = "companies";
 
     //chercher dans cache
-    const cacheCompanies = await this.redis.getClient().get(cacheKey)
+    const cacheCompanies = await this.redis.get(cacheKey)
 
     if(cacheCompanies){
           console.log('Companies loaded from Redis ⚡');
@@ -56,9 +56,7 @@ export class CompanyService {
       }
     })
 
-    await this.redis.getClient().set(cacheKey, JSON.stringify(companies), {
-      EX:60
-    })
+    await this.redis.set(cacheKey, companies, 30)
 
     return {
       status: "success",
@@ -71,7 +69,7 @@ export class CompanyService {
 
     const cacheKey = `company:${id}`;
 
-    const cacheCompany = await this.redis.getClient().get(cacheKey)
+    const cacheCompany = await this.redis.get(cacheKey)
 
     if(cacheCompany){
           console.log(`Company ${id} loaded from Redis ⚡`);
@@ -93,10 +91,7 @@ export class CompanyService {
     }
 
     //Mettre en cache
-    await this.redis.getClient().set(cacheKey, JSON.stringify(company),
-    {
-      EX: 60
-    })
+    await this.redis.set(cacheKey, company, 60)
 
 
     return {
@@ -107,20 +102,23 @@ export class CompanyService {
   }
 
   async update(id: number, updateCompanyDto: UpdateCompanyDto) {
+
     const company = await this.prisma.company.findUnique({
       where: {id:id}
     })
+
     if(!company){
       throw new NotFoundException("Company not exist")
     }
+
     const updatedCompany = await this.prisma.company.update({
       where: {id: id},
       data: updateCompanyDto
     })
 
     // Invalidate cache company
-    await this.redis.getClient().del("companies")
-    await this.redis.getClient().del(`company:${id}`);
+    await this.redis.del("companies")
+    await this.redis.del(`company:${id}`);
 
     return {
       status: "success",
@@ -139,8 +137,8 @@ export class CompanyService {
     })
 
     // Invalide cache company
-    await this.redis.getClient().del("companies")
-    await this.redis.getClient().del(`company:${id}`);
+    await this.redis.del("companies")
+    await this.redis.del(`company:${id}`);
 
     return {
       status: "success",
