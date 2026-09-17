@@ -49,7 +49,7 @@ const RapidAccess = () => {
                 {model.icone}
               </span>
               <span>
-                <div className="text-sm">{model.name}</div>
+                <div className="text-sm text-black01">{model.name}</div>
               </span>
             </div>
             <span className="text-[rgba(47,46,46,0.4)]">

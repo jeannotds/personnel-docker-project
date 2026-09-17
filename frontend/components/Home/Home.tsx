@@ -9,7 +9,7 @@ const Home = () => {
     <div>
       <BennerHome />
       <Statistics />
-      <div className="px-16 grid grid-cols-[70%_30%] w-full gap-8">
+      <div className="px-16 grid grid-cols-[70%_30%] pb-12 w-full gap-8">
         <RecentTasks />
         <RapidAccess />
       </div>
