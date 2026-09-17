@@ -1,11 +1,10 @@
 import {
-  Company,
   CreateCompany,
   ResponseCompanies,
   ResponseCompany,
   UpdateCompany,
 } from "../interfaces/interface";
-import api from "../lib/app";
+import api from "../lib/api";
 
 export const getCompaniesHttp = async (): Promise<ResponseCompanies> => {
   try {

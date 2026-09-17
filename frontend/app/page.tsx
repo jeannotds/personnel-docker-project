@@ -1,11 +1,10 @@
-import Image from "next/image";
-import Health from "./components/Health";
+import Home from '@/components/Home/Home'
+import React from 'react'
 
-export default function Home() {
+const HomePage = () => {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <h1>Health test</h1>
-      <Health />
-    </div>
-  );
+    <div className='overflow-hidden'><Home /></div>
+  )
 }
+
+export default HomePage
