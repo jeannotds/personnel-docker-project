@@ -16,10 +16,10 @@ import Footer from "@/components/Home/Footer/Footer";
 // });
 
 const font = Roboto({
-  weight: ['200','300','400','500','600','700','800','900'],
-  subsets: ['latin'],
+  weight: ["200", "300", "400", "500", "600", "700", "800", "900"],
+  subsets: ["latin"],
   variable: "--font-roboto",
-})
+});
 
 export const metadata: Metadata = {
   title: "Personnal App",
@@ -33,11 +33,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${font.variable} h-full antialiased`}
       // className={`${font.className} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <ResponsiveNav/>
+      <body className="min-h-full flex flex-col bg-white04">
+        <ResponsiveNav />
         {children}
         <Footer />
-        </body>
+      </body>
     </html>
   );
 }

@@ -4,10 +4,20 @@
   --color-white01: #FFFFFF;
   --color-white02: #f5f0f0;
   --color-white03: #fafafacc;
+  --color-white04: #F0F0F0;
+
   --color-primeryO1: #024a30;
   --color-primery02: #022a1b;
   --color-primery03: #09bd7b;
   --color-primery03opac: #09bd7b1a;
+  --color-primery04: #028152;
+
+  --color-black: #000000;
+  --color-black01: #0e0e0e;
+  --color-black04: #251e1e99;
+
+
+  --color-blue03: #474cdd;
 }
 /* 
 :root {
