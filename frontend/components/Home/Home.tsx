@@ -22,7 +22,7 @@ const Home = async () => {
         tasks={responseTasks}
       />
       <div className="px-16 grid grid-cols-[70%_30%] pb-12 w-full gap-8">
-        <RecentTasks />
+        <RecentTasks tasks={responseTasks} />
         <RapidAccess />
       </div>
     </div>

@@ -98,9 +98,20 @@ export interface ResponseTasks {
   id: number;
   title: string;
   description: string;
-  completed: Boolean;
+  completed: boolean;
   createdAt: string;
   updatedAt: string;
   employeeId: number;
-  data: Employee[];
+  data: Task[];
+}
+
+export interface Task {
+  id: number;
+  title: string;
+  description: string;
+  completed: boolean;
+  createdAt: string;
+  updatedAt: string;
+  employeeId: number;
+  employee: Employee;
 }
