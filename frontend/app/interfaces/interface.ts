@@ -30,4 +30,35 @@ export interface ResponseCompanies {
   data: Company[];
 }
 
-export class Department {}
+export interface Department {
+  id: number;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateDepartment {
+  name: string;
+  companyId: number;
+}
+
+export interface ResponseDepartments {
+  status: string;
+  message: string;
+  data: Department[];
+}
+
+export interface ResponseDepartment {
+  status: string;
+  message: string;
+  data: Department;
+}
+
+export interface Department {
+  id: number;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  companyId: number;
+  company: Company;
+}
