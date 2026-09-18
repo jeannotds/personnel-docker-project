@@ -17,8 +17,8 @@ export const getCompaniesHttp = async (): Promise<ResponseCompanies> => {
 };
 
 export const getCompanyHttp = async (id: number): Promise<ResponseCompany> => {
-  const response = await api.get<ResponseCompany>(`companies/${id}`);
   try {
+    const response = await api.get<ResponseCompany>(`/companies/${id}`);
     return response.data;
   } catch (err) {
     console.error(err);
@@ -30,7 +30,7 @@ export const createCompanyHttp = async (
   data: CreateCompany,
 ): Promise<ResponseCompany> => {
   try {
-    const response = await api.post<ResponseCompany>("company", data);
+    const response = await api.post<ResponseCompany>("/company", data);
     return response.data;
   } catch (err) {
     console.log(err);
@@ -43,7 +43,7 @@ export const updateCompanyHttp = async (
   data: UpdateCompany,
 ): Promise<ResponseCompany> => {
   try {
-    const response = await api.patch<ResponseCompany>(`companies/${id}`, data);
+    const response = await api.patch<ResponseCompany>(`/companies/${id}`, data);
     return response.data;
   } catch (err) {
     console.log(err);
@@ -53,7 +53,7 @@ export const updateCompanyHttp = async (
 
 export const deleteCompany = async (id: number): Promise<ResponseCompany> => {
   try {
-    const response = await api.delete<ResponseCompany>(`companies/${id}`);
+    const response = await api.delete<ResponseCompany>(`/companies/${id}`);
     return response.data;
   } catch (err) {
     console.log(err);
