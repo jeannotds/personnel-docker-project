@@ -5,11 +5,13 @@ import RapidAccess from "./Task/RapidAccess";
 import { getCompaniesHttp } from "@/app/api/company.api";
 import { getDepartmentsHttp } from "@/app/api/department.api";
 import { getEmployeesHttp } from "@/app/api/employe.api";
+import { getTasksHttp } from "@/app/api/task.api";
 
 const Home = async () => {
   const responseComp = await getCompaniesHttp();
   const responseDepart = await getDepartmentsHttp();
   const responseEmpl = await getEmployeesHttp();
+  const responseTasks = await getTasksHttp();
   return (
     <div>
       <BennerHome />
@@ -17,6 +19,7 @@ const Home = async () => {
         companies={responseComp}
         departments={responseDepart}
         employees={responseEmpl}
+        tasks={responseTasks}
       />
       <div className="px-16 grid grid-cols-[70%_30%] pb-12 w-full gap-8">
         <RecentTasks />

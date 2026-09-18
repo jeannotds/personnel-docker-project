@@ -2,6 +2,7 @@ import {
   ResponseCompanies,
   ResponseDepartments,
   ResponseEmployees,
+  ResponseTasks,
 } from "@/app/interfaces/interface";
 import { BuildingComplex } from "lucide-react";
 
@@ -9,9 +10,15 @@ interface StaticsProps {
   companies: ResponseCompanies;
   departments: ResponseDepartments;
   employees: ResponseEmployees;
+  tasks: ResponseTasks;
 }
 
-const Statistics = ({ companies, departments, employees }: StaticsProps) => {
+const Statistics = ({
+  companies,
+  departments,
+  employees,
+  tasks,
+}: StaticsProps) => {
   console.log("employees : ", employees);
   return (
     <div className="px-16 py-9 grid grid-cols-4 gap-4">
@@ -46,22 +53,22 @@ const Statistics = ({ companies, departments, employees }: StaticsProps) => {
             <BuildingComplex color="white" />
           </div>
         </div>
-        <span className="text-3xl font-bold">{employees.data.length}</span>
+        <span className="text-3xl font-bold">{employees?.data?.length}</span>
         {/* <span className="text-sm text-yellow-600 font-medium">
           3 Organisation
         </span> */}
       </div>
       <div className="flex flex-col gap-3 px-4 py-4 bg-white rounded-2xl border shadow-2xs border-[rgba(71,63,63,0.1)]">
         <div className="flex flex-row justify-between relative">
-          <span className="text-black04 text-sm font-medium">Entreprise</span>
+          <span className="text-black04 text-sm font-medium">Taches</span>
           <div className=" bg-amber-700 p-3 rounded-2xl absolute right-0">
             <BuildingComplex color="white" />
           </div>
         </div>
-        <span className="text-3xl font-bold">{3}</span>
-        <span className="text-sm text-amber-700 font-medium">
+        <span className="text-3xl font-bold">{tasks?.data?.length}</span>
+        {/* <span className="text-sm text-amber-700 font-medium">
           3 Organisation
-        </span>
+        </span> */}
       </div>
     </div>
   );

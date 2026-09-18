@@ -87,3 +87,20 @@ export interface Employee {
   departmentId: number;
   department: Department;
 }
+
+export interface CreateTask {
+  title: string;
+  description: string;
+  completed: Boolean;
+}
+
+export interface ReponseTasks {
+  id: number;
+  title: string;
+  description: string;
+  completed: Boolean;
+  createdAt: string;
+  updatedAt: string;
+  employeeId: number;
+  data: Employee[];
+}
