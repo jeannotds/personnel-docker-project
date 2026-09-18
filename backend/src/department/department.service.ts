@@ -1,4 +1,8 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaClient } from '@prisma/client/extension';
 import { CreateDepartmentDto } from './dto/create-department.dto';
 import { PrismaService } from '../prisma/prisma.service';
@@ -6,120 +10,122 @@ import { UpdateDepartmentDto } from './dto/update-department.dto';
 
 @Injectable()
 export class DepartmentService {
-    constructor(private readonly prisma: PrismaService){}
+  constructor(private readonly prisma: PrismaService) {}
 
-    async create(createDepartmentDto: CreateDepartmentDto){
+  async create(createDepartmentDto: CreateDepartmentDto) {
+    const { name, companyId } = createDepartmentDto;
 
-        const {name, companyId} = createDepartmentDto;
+    const company = await this.prisma.company.findUnique({
+      where: { id: companyId },
+    });
 
-        const company = await this.prisma.company.findUnique({
-            where: {id: companyId}
-        })
-
-        if(!company){
-            throw new NotFoundException("Company not found")
-        }
-
-        const departementFound = await this.prisma.department.findFirst({
-            where: {name, companyId}
-        })
-
-        if(departementFound){
-            throw new ConflictException("Department already exist in this company")
-        }
-
-        const createsDepartment = await this.prisma.department.create({data: {name, companyId}, include:{
-            company: true
-        }})
-
-        return {
-            status: "success",
-            message: "Department created successfully",
-            data: createsDepartment,
-        }
+    if (!company) {
+      throw new NotFoundException('Company not found');
     }
 
-    async findAll(){
-        const departments = await this.prisma.department.findMany({
-            include: {
-                company: true
-            },
-            orderBy: {
-                createdAt: "desc"
-            }
-        })
-        return {
-            status: "success",
-            message: "Departments founded successfully",
-            departments
-        }
+    const departementFound = await this.prisma.department.findFirst({
+      where: { name, companyId },
+    });
+
+    if (departementFound) {
+      throw new ConflictException('Department already exist in this company');
     }
 
-    async findOne(id: number){
-        const company = await this.prisma.department.findUnique({
-            where: {
-                id:id
-            }
-        })
+    const createsDepartment = await this.prisma.department.create({
+      data: { name, companyId },
+      include: {
+        company: true,
+      },
+    });
 
-        if(!company){
-            throw new NotFoundException("Department not found")
-        }
+    return {
+      status: 'success',
+      message: 'Department created successfully',
+      data: createsDepartment,
+    };
+  }
 
-        return {
-            status: "success",
-            message: "Department founded successfully",
-            data: company
-        }
+  async findAll() {
+    const departments = await this.prisma.department.findMany({
+      include: {
+        company: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+    return {
+      status: 'success',
+      message: 'Departments founded successfully',
+      dat: departments,
+    };
+  }
+
+  async findOne(id: number) {
+    const company = await this.prisma.department.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!company) {
+      throw new NotFoundException('Department not found');
     }
 
-    async update(id: number, updateDepartmentDto: UpdateDepartmentDto){
-        const findDepartment = await this.prisma.department.findUnique({
-            where: {id}
-        })
+    return {
+      status: 'success',
+      message: 'Department founded successfully',
+      data: company,
+    };
+  }
 
-        if(!findDepartment){
-            throw new NotFoundException("Department not found")
-        }
+  async update(id: number, updateDepartmentDto: UpdateDepartmentDto) {
+    const findDepartment = await this.prisma.department.findUnique({
+      where: { id },
+    });
 
-        const findCompany = await this.prisma.company.findUnique({
-            where: {id: updateDepartmentDto.companyId}
-        })
-
-        if(!findCompany){
-            throw new NotFoundException("Company not found")
-        }
-
-        const updateDepartment = await this.prisma.department.update({
-            where: {id: id},
-            data: updateDepartmentDto
-        })
-
-        return {
-            status: "success",
-            message: "Department upated successfully",
-            data: updateDepartment,
-        }
+    if (!findDepartment) {
+      throw new NotFoundException('Department not found');
     }
 
-    async delete(id: number){
-        const department = await this.prisma.department.findUnique({where: {id}})
+    const findCompany = await this.prisma.company.findUnique({
+      where: { id: updateDepartmentDto.companyId },
+    });
 
-        if(!department){
-            throw new NotFoundException("Department not dound")
-        }
-
-        await this.prisma.department.delete({
-            where: {
-                id:id
-            }
-        })
-
-        return {
-            status: "success",
-            message: "Department deleted successfully"
-        }
+    if (!findCompany) {
+      throw new NotFoundException('Company not found');
     }
 
-    
+    const updateDepartment = await this.prisma.department.update({
+      where: { id: id },
+      data: updateDepartmentDto,
+    });
+
+    return {
+      status: 'success',
+      message: 'Department upated successfully',
+      data: updateDepartment,
+    };
+  }
+
+  async delete(id: number) {
+    const department = await this.prisma.department.findUnique({
+      where: { id },
+    });
+
+    if (!department) {
+      throw new NotFoundException('Department not dound');
+    }
+
+    await this.prisma.department.delete({
+      where: {
+        id: id,
+      },
+    });
+
+    return {
+      status: 'success',
+      message: 'Department deleted successfully',
+    };
+  }
 }
