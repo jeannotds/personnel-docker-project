@@ -15,7 +15,6 @@ const CreateCompanyModal = () => {
     try {
       const response = await createCompanyHttp({ name });
       if (response.status === "success") {
-        console.log("response : ", response);
         setLoading(false);
       }
     } catch (err) {
