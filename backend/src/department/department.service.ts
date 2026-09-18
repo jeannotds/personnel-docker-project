@@ -57,7 +57,7 @@ export class DepartmentService {
     return {
       status: 'success',
       message: 'Departments founded successfully',
-      dat: departments,
+      data: departments,
     };
   }
 
