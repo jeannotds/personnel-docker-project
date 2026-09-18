@@ -45,7 +45,7 @@ const SideBar = () => {
     },
   ];
   return (
-    <div className="px-5 flex flex-col justify-between h-screen">
+    <div className="px-5 flex flex-col justify-between h-screen shadow-xs">
       <div className="">
         <div className="flex flex-row items-center h-[10vh] gap-4">
           <div className=" bg-primery04 p-2 rounded-xl">

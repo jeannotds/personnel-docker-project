@@ -3,7 +3,7 @@ import { Bell } from "lucide-react";
 const Nav = () => {
   return (
     // <div>
-    <div className="px-16 flex flex-row font-semibold fixed justify-between p-7 h-[10vh] bg-white01 w-full">
+    <div className="px-4 flex flex-row font-semibold fixed justify-between p-7 h-[10vh] bg-white01 w-full">
       <div className="flex flex-col">
         <h1 className="font-bold text-lg">Tableau de bord</h1>
         <div className="text-[12px] font-light opacity-60">
