@@ -6,9 +6,11 @@ import {
   Search,
 } from "lucide-react";
 import { getCompaniesHttp } from "../api/company.api";
+import CreateCompanyModal from "@/components/Companies/CreateCompanyModal";
 
 const CompaniesPage = async () => {
   const companies = await getCompaniesHttp();
+
   return (
     <div className="pt-36 pb-20 px-16">
       <div className="flex flex-row justify-between mb-8">
@@ -22,9 +24,7 @@ const CompaniesPage = async () => {
             className=" border-0 outline-none ml-0 p-2 pr-8 placeholder:text-sm"
           />
         </div>
-        <button className=" bg-primery04 flex flex-row gap-2 items-center justify-center rounded-xl px-3 text-sm font-semibold text-white01">
-          <Plus width={20} height={20} /> Nouvelle entreprise
-        </button>
+        <CreateCompanyModal />
       </div>
       <div className="grid grid-cols-3 gap-5">
         {companies.data.map((comp) => (

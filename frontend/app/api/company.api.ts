@@ -30,7 +30,7 @@ export const createCompanyHttp = async (
   data: CreateCompany,
 ): Promise<ResponseCompany> => {
   try {
-    const response = await api.post<ResponseCompany>("/company", data);
+    const response = await api.post<ResponseCompany>("/companies", data);
     return response.data;
   } catch (err) {
     console.log(err);
