@@ -62,3 +62,28 @@ export interface Department {
   companyId: number;
   company: Company;
 }
+
+export interface CreateEmployee {
+  firstName: string;
+  lastName: string;
+  email: string;
+  telephone: string;
+}
+
+export interface ResponseEmployees {
+  status: string;
+  message: string;
+  data: Employee[];
+}
+
+export interface Employee {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  telephone: string;
+  createdAt: string;
+  updatedAt: string;
+  departmentId: number;
+  department: Department;
+}
