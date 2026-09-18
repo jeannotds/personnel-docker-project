@@ -1,7 +1,12 @@
+import { ResponseCompanies } from "@/app/interfaces/interface";
 import { BuildingComplex } from "lucide-react";
-import React from "react";
 
-const Statistics = () => {
+interface StaticsProps {
+  data: ResponseCompanies;
+}
+
+const Statistics = ({ data }: StaticsProps) => {
+  console.log("response data I : ", data);
   return (
     <div className="px-16 py-9 grid grid-cols-4 gap-4">
       <div className="flex flex-col gap-3 px-4 py-4 bg-white rounded-2xl border shadow-2xs border-[rgba(71,63,63,0.1)]">

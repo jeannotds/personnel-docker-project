@@ -9,6 +9,7 @@ import api from "../lib/api";
 export const getCompaniesHttp = async (): Promise<ResponseCompanies> => {
   try {
     const response = await api.get<ResponseCompanies>("/companies");
+    console.log("data request : ", response.data);
     return response.data;
   } catch (err) {
     console.error(err);

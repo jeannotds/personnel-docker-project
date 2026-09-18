@@ -7,7 +7,7 @@ export interface Company {
   id: number;
   name: string;
   createdAt: string;
-  updatedAit: string;
+  updatedAt: string;
 }
 
 export interface CreateCompany {
@@ -19,7 +19,7 @@ export interface UpdateCompany {
 }
 
 export interface ResponseCompany {
-  status: Boolean;
+  status: string;
   message: string;
   data: Company;
 }
