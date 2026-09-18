@@ -1,12 +1,17 @@
+"use client";
 import {
   BuildingComplex,
   CircleCheckBig,
   FireExtinguisher,
   UserRoundMinus,
 } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 const SideBar = () => {
+  const pathname = usePathname();
+  console.log("pathname : ", pathname);
   const options = [
     {
       id: 1,
@@ -18,28 +23,28 @@ const SideBar = () => {
     {
       id: 2,
       label: "Entreprise",
-      url: "/",
+      url: "/companies",
       icon: <FireExtinguisher width={20} height={20} />,
       status: false,
     },
     {
       id: 3,
       label: "Departement",
-      url: "/",
+      url: "/departments",
       icon: <FireExtinguisher width={20} height={20} />,
       status: false,
     },
     {
       id: 4,
       label: "Employés",
-      url: "/",
+      url: "/employees",
       icon: <UserRoundMinus width={20} height={20} />,
       status: false,
     },
     {
       id: 5,
       label: "Taches",
-      url: "/",
+      url: "/tasks",
       icon: <CircleCheckBig width={20} height={20} />,
       status: false,
     },
@@ -64,24 +69,25 @@ const SideBar = () => {
         </h3>
         <div className="flex flex-col gap-3">
           {options.map((op) => (
-            <div
+            <Link
               key={op.id}
-              className={`flex flex-row items-center justify-between h-[50] ${op.status == true && "bg-[#00bd5211]"}`}
+              href={op.url}
+              className={`flex flex-row items-center justify-between h-[50] ${op.url == pathname && "bg-[#00bd5211]"}`}
             >
               <div className="flex flex-row items-center gap-2">
                 <span className="  text-white p-2 rounded-md bg-primery04">
                   {op.icon}
                 </span>
                 <span
-                  className={`  text-sm ${op.status === true ? "font-semibold text-black01" : "text-black04"}`}
+                  className={`  text-sm ${op.url === pathname ? "font-semibold text-black01" : "text-black04"}`}
                 >
                   {op.label}
                 </span>
               </div>
               <span
-                className={`w-[7] h-[7] rounded-full ${op.status === true && "bg-primery04"}`}
+                className={`w-[7] h-[7] rounded-full ${op.url === pathname && "bg-primery04"}`}
               ></span>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
