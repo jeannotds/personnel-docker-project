@@ -7,11 +7,10 @@ import { ResponseCompanies } from "@/app/interfaces/interface";
 
 const Home = async () => {
   const response = await getCompaniesHttp();
-  console.log("companies data ", response);
   return (
     <div>
       <BennerHome />
-      <Statistics data={response} />
+      <Statistics companies={response} />
       <div className="px-16 grid grid-cols-[70%_30%] pb-12 w-full gap-8">
         <RecentTasks />
         <RapidAccess />
