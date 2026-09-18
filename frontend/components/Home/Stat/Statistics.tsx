@@ -19,7 +19,7 @@ const Statistics = ({
   employees,
   tasks,
 }: StaticsProps) => {
-  console.log("employees : ", employees);
+  console.log("tasks : ", tasks);
   return (
     <div className="px-16 py-9 grid grid-cols-4 gap-4">
       <div className="flex flex-col gap-3 px-4 py-4 bg-white rounded-2xl border shadow-2xs border-[rgba(71,63,63,0.1)]">

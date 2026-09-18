@@ -94,7 +94,7 @@ export interface CreateTask {
   completed: Boolean;
 }
 
-export interface ReponseTasks {
+export interface ResponseTasks {
   id: number;
   title: string;
   description: string;
