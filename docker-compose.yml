@@ -4,8 +4,10 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+
     ports:
       - "3005:3005"
+
     environment:
       DATABASE_URL: ${DATABASE_URL}
       REDIS_URL: ${REDIS_URL}
@@ -13,6 +15,7 @@ services:
     volumes:
       - ./backend:/app
       - backend_node_modules:/app/node_modules
+
     depends_on:
       postgres:
         condition: service_healthy
@@ -32,17 +35,22 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+
     environment:
       PORT: ${PORT}
       NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
       INTERNAL_API_URL: ${INTERNAL_API_URL}
+
     ports:
       - "3006:3000"
+
     volumes:
       - ./frontend:/app
       - frontend_node_modules:/app/node_modules
+
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
 
   postgres:
     image: postgres:16-alpine
@@ -51,10 +59,13 @@ services:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
+
     ports:
       - "5433:5432"
+
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}" ]
       interval: 10s
@@ -73,8 +84,10 @@ services:
 
   nginx:
     image: nginx:alpine
+
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+
     depends_on:
       - frontend
       - backend
