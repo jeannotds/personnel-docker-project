@@ -74,7 +74,7 @@ jobs:
       #   run: npm run test
 
       - name: Run Build Application
-        run: npm run buil
+        run: npm run build
 
       - name: End of workflow
         run: echo"End Of Workflow"
