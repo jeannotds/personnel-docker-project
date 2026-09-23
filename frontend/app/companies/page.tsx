@@ -8,6 +8,7 @@ import {
 import { getCompaniesHttp } from "../api/company.api";
 import CreateCompanyModal from "@/components/Companies/CreateCompanyModal";
 
+export const dynamic = "force-dynamic";
 const CompaniesPage = async () => {
   const companies = await getCompaniesHttp();
 

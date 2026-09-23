@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  push:
+    branch:
+      - main
+  pull_request:
+    branch:
+      - main
+
+jobs:
+  backend:
+    name: Backend CI
+    # « Exécute le job backend sur une machine virtuelle Ubuntu récente. »
+    runs-on: ubuntu-latest
+
+    # Choisir le repertoire ou l'app à faire le job
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      # la MV ne contient le code donc
+      # donc github va aller recuperer nos codes depuis le repository parce qu"il n'a pas le code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Cette action va installer/configurer Node.js sur le runner
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cach: npm
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install Dependances
+        run: npm ci
+
+      - name: Run Test code
+        run: npm run test
+
+      - name: Build code
+        run: npm run build
+
+      - name: End of Workflow
+        run: echo "End of workflow"
+
+  frontend:
+    name: Frontend CI
+    runs-on: ubuntu-latest
+
+    defauts:
+      run:
+        working-directory: frontend
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          catch: npm
+          cach-dependency-path: frontend/package-lock.json
+
+      - name: Install Depencies
+        run: npm ci
+
+      - name: Run Tests code
+        run: npm run test
+
+      - name: Run Build Application
+        run: npm run buil
+
+      - name: End of workflow
+        run: echo"End Of Workflow"
