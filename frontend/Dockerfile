@@ -6,8 +6,6 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm ci --omit=dev
-
 COPY . .
 
 RUN npm run build
@@ -22,8 +20,16 @@ ENV NODE_ENV=production
 
 COPY package*.json ./
 
-COPY --from=builder /app/node_mudles ./node_modules
+COPY --from=builder /app/node_modules ./node_modules
+
+# RUN npm ci --omit=dev
+
+RUN npm prune --omit=dev
+
+COPY --from=builder /app/.next ./.next
+
+COPY --from=builder /app/public ./public
 
 EXPOSE 3000
 
-CMD [ "npm", "" ]
+CMD [ "npm", "start" ]
